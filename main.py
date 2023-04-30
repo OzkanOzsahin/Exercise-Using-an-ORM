@@ -3,7 +3,6 @@ import peewee
 from typing import List
 
 
-
 __winc_id__ = "286787689e9849969c326ee41d8c53c4"
 __human_name__ = "Peewee ORM"
 
@@ -83,21 +82,21 @@ def dinner_date_possible() -> List[models.Restaurant]:
     ]
 
 
+
 def add_dish_to_menu() -> models.Dish:
-    """You have created a new dish for your restaurant and want to add it to the menu
+    """
+    You have created a new dish for your restaurant and want to add it to the menu.
 
     The dish you create must at the very least contain 'cheese'.
     You do not know which ingredients are in the database, but you must not
     create ingredients that already exist in the database. You may create
     new ingredients however.
-    Return your newly created dish
+    Return your newly created dish.
     """
 
-    #models.db.connect()
-models.db.create_tables([models.Ingredient, models.Restaurant, models.Dish,
-                    models.Rating])
-restaurant = models.Restaurant.get_by_id(1)
-cheese, _ = models.Ingredient.get_or_create(
+    models.db.create_tables([models.Ingredient, models.Restaurant, models.Dish, models.Rating])
+    restaurant = models.Restaurant.get_by_id(1)
+    cheese, _ = models.Ingredient.get_or_create(
         name="cheese",
         defaults={
             "is_vegetarian": True,
@@ -105,11 +104,11 @@ cheese, _ = models.Ingredient.get_or_create(
             "is_glutenfree": True,
         },
     )
-tomato, _ = models.Ingredient.get_or_create(
+    tomato, _ = models.Ingredient.get_or_create(
         name="tomato",
         defaults={"is_vegetarian": True, "is_vegan": True, "is_glutenfree": True},
     )
-bacon, _ = models.Ingredient.get_or_create(
+    bacon, _ = models.Ingredient.get_or_create(
         name="bacon",
         defaults={
             "is_vegetarian": False,
@@ -117,17 +116,17 @@ bacon, _ = models.Ingredient.get_or_create(
             "is_glutenfree": True,
         },
     )
-bread, _ = models.Ingredient.get_or_create()
-name="bread",
-defaults={
+    bread, _ = models.Ingredient.get_or_create(
+        name="bread",
+        defaults={
             "is_vegetarian": True,
             "is_vegan": True,
             "is_glutenfree": False,
         },
-     
-
+    )
     
-#blt = models.Dish.create(served_at=restaurant, price_in_cents=1000, name="BLT")
-#blt.ingredients.add([cheese, bacon, tomato, bread])
+    blt = models.Dish.create(served_at=restaurant, price_in_cents=1000, name="BLT")
+    blt.ingredients.add([cheese, bacon, tomato, bread])
 
-models.db.close()
+    return blt
+
