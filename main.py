@@ -1,5 +1,5 @@
 import models 
-import peewee 
+import peewee
 from typing import List
 
 
@@ -51,7 +51,7 @@ def add_rating_to_restaurant() -> None:
 
     Select the first restaurant in the dataset and add a rating
     """
-    models.db.connect()
+    #models.db.connect()
     models.db.create_tables([models.Ingredient, models.Restaurant, models.Dish,
     models.Rating])
 
@@ -92,7 +92,10 @@ def add_dish_to_menu() -> models.Dish:
     new ingredients however.
     Return your newly created dish
     """
-    return blt
+
+    #models.db.connect()
+models.db.create_tables([models.Ingredient, models.Restaurant, models.Dish,
+                    models.Rating])
 restaurant = models.Restaurant.get_by_id(1)
 cheese, _ = models.Ingredient.get_or_create(
         name="cheese",
@@ -114,13 +117,17 @@ bacon, _ = models.Ingredient.get_or_create(
             "is_glutenfree": True,
         },
     )
-bread, _ = models.Ingredient.get_or_create(
-        name="bread",
-        defaults={
+bread, _ = models.Ingredient.get_or_create()
+name="bread",
+defaults={
             "is_vegetarian": True,
             "is_vegan": True,
             "is_glutenfree": False,
         },
-    )
-blt = models.Dish.create(served_at=restaurant, price_in_cents=1000, name="BLT")
-blt.ingredients.add([cheese, bacon, tomato, bread])
+     
+
+    
+#blt = models.Dish.create(served_at=restaurant, price_in_cents=1000, name="BLT")
+#blt.ingredients.add([cheese, bacon, tomato, bread])
+
+models.db.close()
