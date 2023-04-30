@@ -2,6 +2,8 @@ import models
 import peewee 
 from typing import List
 
+
+
 __winc_id__ = "286787689e9849969c326ee41d8c53c4"
 __human_name__ = "Peewee ORM"
 
@@ -49,6 +51,11 @@ def add_rating_to_restaurant() -> None:
 
     Select the first restaurant in the dataset and add a rating
     """
+    models.db.connect()
+    models.db.create_tables([models.Ingredient, models.Restaurant, models.Dish,
+    models.Rating])
+
+
     restaurant = models.Restaurant.get_by_id(1)
     models.Rating.create(restaurant=restaurant, rating=5, comments=None)
 
